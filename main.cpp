@@ -1,7 +1,10 @@
 /*NOTAS:
     Hay que hacer una funcion para cada opcion.
     Hay que usar vectores <> (arrays dinamicos) en lugar de 
-    arrays estaticos, porque no sabemos cuantos elementos van a haber.*/
+    arrays estaticos, porque no sabemos cuantos elementos van a haber.
+    
+    Al usar la funcion AgregarPaciente se recolectan los datos y se deben pasar al
+    constructor paciente dentro del vector pacientes. */
 
 
 #include <iostream>
@@ -15,7 +18,7 @@ using namespace std;
 
 //variables globales
 int opcion;
-vector<int> pacientes;
+vector<paciente> pacientes;
 int nextId = 0;
 
 typedef struct paciente{
@@ -26,6 +29,28 @@ typedef struct paciente{
     paciente(string nombre, string apellido, string enfermedad, int id){}//constructor del paciente
 }paciente;
 
+
+void AgregarPaciente(){
+    string nombrePaciente;
+    string apellidoPaciente;
+    int edadPaciente;
+
+    cout << "Ingresa el nombre del paciente: ";
+    getline(cin, nombrePaciente, '\0');
+    fflush(stdin);
+
+    cout << "Ingresa el apellido del paciente: ";
+    getline(cin, apellidoPaciente, '\0');
+    fflush(stdin);
+
+    cout << "Ingresa la edad del paciente: ";
+    cin >> edadPaciente;
+    fflush(stdin);
+
+    //aqui agregar el paciente al vector
+
+    //Pasar los valores obtenidos al constructor al struct
+}
 
 void menu(){
 
