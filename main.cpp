@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <conio.h>
 //Para estilizar textos en CMD:
 #include <iomanip>
 #include <ios> 
@@ -17,39 +18,65 @@
 using namespace std;
 
 //variables globales
-int opcion;
-vector<paciente> pacientes;
-int nextId = 0;
+int opcion, id = 0;
+
+//prototipos
+void menu();
+void AgregarPaciente();
+
 
 typedef struct paciente{
     string nombre;
     string apellido;
+    int edad;
     string enfermedad;
     int id;
-    paciente(string nombre, string apellido, string enfermedad, int id){}//constructor del paciente
+
+    //constructor del paciente
+    paciente(string _nombre, string _apellido, int _edad, string _enfermedad, int _id) 
+        : nombre(_nombre), apellido(_apellido), edad(_edad), enfermedad(_enfermedad), id(_id) {}
 }paciente;
 
+vector<paciente> pacientes;
 
 void AgregarPaciente(){
     string nombrePaciente;
     string apellidoPaciente;
     int edadPaciente;
+    string enfermedadPaciente;
 
     cout << "Ingresa el nombre del paciente: ";
-    getline(cin, nombrePaciente, '\0');
+    getline(cin, nombrePaciente);
     fflush(stdin);
 
     cout << "Ingresa el apellido del paciente: ";
-    getline(cin, apellidoPaciente, '\0');
+    getline(cin, apellidoPaciente);
     fflush(stdin);
 
     cout << "Ingresa la edad del paciente: ";
     cin >> edadPaciente;
     fflush(stdin);
 
-    //aqui agregar el paciente al vector
+    cout << "Ingresa la enfermedad del paciente: ";
+    getline(cin, enfermedadPaciente);
+    fflush(stdin);
 
-    //Pasar los valores obtenidos al constructor al struct
+    //se pasan los datos al vector con la info para el constructor
+    pacientes.push_back(paciente(nombrePaciente, apellidoPaciente, edadPaciente, enfermedadPaciente, id));
+    
+    system("CLS");
+    cout << "Paciente Registrado" << endl;
+    cout << "Nombre: " << nombrePaciente << endl;
+    cout << "Apellido: " << apellidoPaciente << endl;
+    cout << "Edad: " << edadPaciente << endl;
+    cout << "Enfermedad: " << enfermedadPaciente << endl;
+    cout << "ID: " << id << endl << endl;
+    id++;
+    cout << "Pulsa enter para continuar...";
+    getch();
+    fflush(stdin);
+    system("CLS");
+    menu();
 }
 
 void menu(){
@@ -78,7 +105,8 @@ int main(){
         /* Mostrar Pacientes*/
         break;
     case 2:
-        //add paciente
+        //agregar paciente
+        AgregarPaciente();
         break;
     case 3:
         //Modificar paciente
