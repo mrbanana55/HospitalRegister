@@ -4,7 +4,9 @@
     arrays estaticos, porque no sabemos cuantos elementos van a haber.
     
     Al usar la funcion AgregarPaciente se recolectan los datos y se deben pasar al
-    constructor paciente dentro del vector pacientes. */
+    constructor paciente dentro del vector pacientes.
+    
+    Falta agragar algo como "pulsa ESC para regresar al menu" */
 
 
 #include <iostream>
@@ -21,8 +23,11 @@ using namespace std;
 int opcion, id = 0;
 
 //prototipos
-void menu();
+void Menu();
+int main();
 void AgregarPaciente();
+void MostrarPacientes();
+void ModificarPaciente();
 
 
 typedef struct paciente{
@@ -72,14 +77,13 @@ void AgregarPaciente(){
     cout << "Enfermedad: " << enfermedadPaciente << endl;
     cout << "ID: " << id << endl << endl;
     id++;
-    cout << "Pulsa enter para continuar...";
-    getch();
+    system("pause");
     fflush(stdin);
     system("CLS");
-    menu();
+    main();
 }
 
-void menu(){
+void Menu(){
 
     cout << "*******************" << endl;
     cout << "*Base de Pacientes*" << endl;
@@ -96,13 +100,94 @@ void menu(){
     system("CLS");
 }
 
+void MostrarPacientes(){
+
+    for (paciente i : pacientes){
+        cout << "ID\tNOMBRE\tAPELLIDO\tEDAD\tENFERMEDAD" << endl;
+        cout << i.id << "\t" << i.nombre << "\t" << i.apellido << "\t" << i.edad << "\t" << i.enfermedad << endl;
+    }
+    system("pause");
+    system("CLS");
+    main();
+    
+}
+
+void ModificarPaciente(){
+
+    int target; //target = id a buscar
+    bool encontrado = false;
+    cout << "Ingresa el ID del paciente: ";
+    cin >> target;
+    fflush(stdin);
+    for (paciente &i : pacientes)
+    {
+        if (i.id == target)
+        {
+            encontrado = true;
+            cout << "*********************" << endl;
+            cout << "*PACIENTE ENCONTRADO*" << endl;
+            cout << "*********************" << endl << endl;
+
+            cout << "1. Cambiar nombre." << endl;
+            cout << "2. Cambiar apellido." << endl;
+            cout << "3. Cambiar edad." << endl;
+            cout << "4. Cambiar enfermedad." << endl;
+            cout << "5. Salir" << endl << endl;
+
+            cout << "Selecciona la opción del dato a modificar" << endl;
+            cin >> opcion;
+            fflush(stdin);
+            system("CLS");
+
+            switch (opcion)
+            {
+            case 1: //cambiar nombre
+                cout <<"Ingresa el nuevo nombre: ";
+                getline(cin, i.nombre);
+                fflush(stdin);
+                break;
+            
+            case 2:
+                cout << "Ingresa el nuevo apellido: ";
+                getline(cin, i.apellido);
+                fflush(stdin);
+                break;
+            
+            case 3:
+                cout << "Ingresa la nueva edad: ";
+                cin >> i.edad;
+                cin.ignore();
+                break;
+
+            case 4:
+                cout << "Ingresa la nueva enfermedad: ";
+                getline(cin, i.enfermedad);
+                fflush(stdin);
+                break;
+            
+            case 5: break;
+            }
+        break;
+        }
+    }
+    if(!encontrado)
+    {
+        system("CLS");
+        cout << "Paciente no encontrado." << endl;
+        system("pause");
+    }
+    system("CLS");
+    main();
+}
+
 int main(){
 
-    menu();
+    Menu();
     switch (opcion)
     {
     case 1:
         /* Mostrar Pacientes*/
+        MostrarPacientes();
         break;
     case 2:
         //agregar paciente
@@ -110,13 +195,14 @@ int main(){
         break;
     case 3:
         //Modificar paciente
+        ModificarPaciente();
         break;
     case 4:
         //Quitar paciente
         break;
     case 5:
         //salir
-        break;
+        return 0;
     }
     
 }
