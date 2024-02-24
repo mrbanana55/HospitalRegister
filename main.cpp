@@ -22,15 +22,10 @@ using namespace std;
 //variables globales
 int opcion, id = 0;
 
-//prototipos
-void Menu();
+//prototipo para llamarlo desde otros lados.
 int main();
-void AgregarPaciente();
-void MostrarPacientes();
-void ModificarPaciente();
-void QuitarPaciente();
 
-
+//estructura de paciente
 typedef struct paciente{
     string nombre;
     string apellido;
@@ -43,7 +38,37 @@ typedef struct paciente{
         : nombre(_nombre), apellido(_apellido), edad(_edad), enfermedad(_enfermedad), id(_id) {}
 }paciente;
 
-vector<paciente> pacientes;
+//vector de tipo paciente
+vector <paciente> pacientes;
+
+void Menu(){
+
+    cout << "*******************" << endl;
+    cout << "*Base de Pacientes*" << endl;
+    cout << "*******************" << endl;
+    cout << endl << endl;
+    cout << "[1] Mostrar Pacientes." << endl;
+    cout << "[2] Añadir Paciente." << endl;
+    cout << "[3] Modificar Paciente." << endl;
+    cout << "[4] Quitar Paciente." << endl;
+    cout << "[5] Salir." << endl << endl;
+    cout << "Ingresa el número correspondiente a la opción: ";
+    cin >> opcion;
+    cin.ignore();
+    system("CLS");
+}
+
+void MostrarPacientes(){
+
+    cout << "ID\tNOMBRE\tAPELLIDO\tEDAD\tENFERMEDAD" << endl;
+    for (paciente i : pacientes){
+        cout << i.id << "\t" << i.nombre << "\t" << i.apellido << "\t" << i.edad << "\t" << i.enfermedad << endl;
+    }
+    system("pause");
+    system("CLS");
+    main();
+    
+}
 
 void AgregarPaciente(){
     string nombrePaciente;
@@ -53,19 +78,19 @@ void AgregarPaciente(){
 
     cout << "Ingresa el nombre del paciente: ";
     getline(cin, nombrePaciente);
-    fflush(stdin);
+    cin.ignore();
 
     cout << "Ingresa el apellido del paciente: ";
     getline(cin, apellidoPaciente);
-    fflush(stdin);
+    cin.ignore();
 
     cout << "Ingresa la edad del paciente: ";
     cin >> edadPaciente;
-    fflush(stdin);
+    cin.ignore();
 
     cout << "Ingresa la enfermedad del paciente: ";
     getline(cin, enfermedadPaciente);
-    fflush(stdin);
+    cin.ignore();
 
     //se pasan los datos al vector con la info para el constructor
     pacientes.push_back(paciente(nombrePaciente, apellidoPaciente, edadPaciente, enfermedadPaciente, id));
@@ -79,38 +104,8 @@ void AgregarPaciente(){
     cout << "ID: " << id << endl << endl;
     id++;
     system("pause");
-    fflush(stdin);
     system("CLS");
     main();
-}
-
-void Menu(){
-
-    cout << "*******************" << endl;
-    cout << "*Base de Pacientes*" << endl;
-    cout << "*******************" << endl;
-    cout << endl << endl;
-    cout << "1. Mostrar Pacientes." << endl;
-    cout << "2. Añadir Paciente." << endl;
-    cout << "3. Modificar Paciente." << endl;
-    cout << "4. Quitar Paciente." << endl;
-    cout << "5. Salir." << endl << endl;
-    cout << "Ingresa el número correspondiente a la opción: ";
-    cin >> opcion;
-    fflush(stdin);
-    system("CLS");
-}
-
-void MostrarPacientes(){
-
-    for (paciente i : pacientes){
-        cout << "ID\tNOMBRE\tAPELLIDO\tEDAD\tENFERMEDAD" << endl;
-        cout << i.id << "\t" << i.nombre << "\t" << i.apellido << "\t" << i.edad << "\t" << i.enfermedad << endl;
-    }
-    system("pause");
-    system("CLS");
-    main();
-    
 }
 
 void ModificarPaciente(){
@@ -119,7 +114,7 @@ void ModificarPaciente(){
     bool encontrado = false;
     cout << "Ingresa el ID del paciente: ";
     cin >> target;
-    fflush(stdin);
+    cin.ignore();
     for (paciente &i : pacientes)
     {
         if (i.id == target)
@@ -129,15 +124,15 @@ void ModificarPaciente(){
             cout << "*PACIENTE ENCONTRADO*" << endl;
             cout << "*********************" << endl << endl;
 
-            cout << "1. Cambiar nombre." << endl;
-            cout << "2. Cambiar apellido." << endl;
-            cout << "3. Cambiar edad." << endl;
-            cout << "4. Cambiar enfermedad." << endl;
-            cout << "5. Salir" << endl << endl;
+            cout << "[1] Cambiar nombre." << endl;
+            cout << "[2] Cambiar apellido." << endl;
+            cout << "[3] Cambiar edad." << endl;
+            cout << "[4] Cambiar enfermedad." << endl;
+            cout << "[5] Salir" << endl << endl;
 
             cout << "Selecciona la opción del dato a modificar" << endl;
             cin >> opcion;
-            fflush(stdin);
+            cin.ignore();
             system("CLS");
 
             switch (opcion)
@@ -145,13 +140,13 @@ void ModificarPaciente(){
             case 1: //cambiar nombre
                 cout <<"Ingresa el nuevo nombre: ";
                 getline(cin, i.nombre);
-                fflush(stdin);
+                cin.ignore();
                 break;
             
             case 2:
                 cout << "Ingresa el nuevo apellido: ";
                 getline(cin, i.apellido);
-                fflush(stdin);
+                cin.ignore();
                 break;
             
             case 3:
@@ -163,7 +158,7 @@ void ModificarPaciente(){
             case 4:
                 cout << "Ingresa la nueva enfermedad: ";
                 getline(cin, i.enfermedad);
-                fflush(stdin);
+                cin.ignore();
                 break;
             
             case 5: break;
@@ -181,14 +176,14 @@ void ModificarPaciente(){
     main();
 }
 
-void QuitarPaciente(){
+void EliminarPaciente(){
 
     int target; //target = id a buscar
     bool encontrado = false;
     int confirmar;
     cout << "Ingresa el ID del paciente: ";
     cin >> target;
-    fflush(stdin);
+    cin.ignore();
     
     for (auto it = pacientes.begin(); it != pacientes.end(); ++it)
     {
@@ -204,7 +199,7 @@ void QuitarPaciente(){
 
             cout << "Ingresa [1] para eliminar el paciente. Ingresa cualquier otro numero para regresar: ";
             cin >> confirmar;
-            fflush(stdin);
+            cin.ignore();
             if(confirmar == 1){
                 pacientes.erase(it);
                 cout << "Paciente eliminado." << endl;
@@ -217,6 +212,7 @@ void QuitarPaciente(){
         cout << "Paciente no encontrado." << endl;
     }
     system("pause");
+    system("CLS");
     main();
 }
 
@@ -227,24 +223,19 @@ int main(){
     switch (opcion)
     {
     case 1:
-        /* Mostrar Pacientes*/
         MostrarPacientes();
         break;
     case 2:
-        //agregar paciente
         AgregarPaciente();
         break;
     case 3:
-        //Modificar paciente
         ModificarPaciente();
         break;
     case 4:
-        //Quitar paciente
-        QuitarPaciente();
+        EliminarPaciente();
         break;
     case 5:
         //salir
         return 0;
-    }
-    
+    }   
 }
