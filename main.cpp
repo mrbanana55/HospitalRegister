@@ -28,6 +28,7 @@ int main();
 void AgregarPaciente();
 void MostrarPacientes();
 void ModificarPaciente();
+void QuitarPaciente();
 
 
 typedef struct paciente{
@@ -180,6 +181,46 @@ void ModificarPaciente(){
     main();
 }
 
+void QuitarPaciente(){
+
+    int target; //target = id a buscar
+    bool encontrado = false;
+    int confirmar;
+    cout << "Ingresa el ID del paciente: ";
+    cin >> target;
+    fflush(stdin);
+    
+    for (auto it = pacientes.begin(); it != pacientes.end(); ++it)
+    {
+        if (it->id == target)
+        {
+            encontrado = true;
+            cout << "*********************" << endl;
+            cout << "*PACIENTE ENCONTRADO*" << endl;
+            cout << "*********************" << endl << endl;
+
+            cout << "ID\tNOMBRE\tAPELLIDO\tEDAD\tENFERMEDAD" << endl;
+            cout << it->id << "\t" << it->nombre << "\t" << it->apellido << "\t" << it->edad << "\t" << it->enfermedad << endl << endl;
+
+            cout << "Ingresa [1] para eliminar el paciente. Ingresa cualquier otro numero para regresar: ";
+            cin >> confirmar;
+            fflush(stdin);
+            if(confirmar == 1){
+                pacientes.erase(it);
+                cout << "Paciente eliminado." << endl;
+            }
+            else cout << "Cancelando..." << endl;
+            break;
+        }
+    }
+    if (!encontrado) {
+        cout << "Paciente no encontrado." << endl;
+    }
+    system("pause");
+    main();
+}
+
+
 int main(){
 
     Menu();
@@ -199,6 +240,7 @@ int main(){
         break;
     case 4:
         //Quitar paciente
+        QuitarPaciente();
         break;
     case 5:
         //salir
