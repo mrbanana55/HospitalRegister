@@ -19,7 +19,7 @@
 using namespace std;
 
 //variables globales
-int opcion, id = 0, colAncho = 20;
+int opcion, id = 0, colAncho = 23;
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //de windows.h para obtener manejo de la salida estandar. Se guarda en hConsole
 
 
@@ -230,7 +230,7 @@ void ModificarPaciente(){
             ColorReset();
             cout << "] Salir" << endl << endl;
 
-            cout << "Selecciona la opción del dato a modificar: " << endl;
+            cout << "Selecciona la opción del dato a modificar: ";
             cin >> opcion;
             cin.ignore();
             system("CLS");
@@ -263,6 +263,9 @@ void ModificarPaciente(){
             
             case 5: break;
             }
+        ColorVerde();
+        cout << "Datos Actualizados." << endl;
+        ColorReset();
         break;
         }
     }
