@@ -112,8 +112,7 @@ void MostrarPacientes(){
         system("CLS");
         main();
     }
-    
-
+    else{
     ColorAmarillo();
     cout << setw(5) << "ID" << setw(colAncho) <<"NOMBRE" << setw(colAncho) << "APELLIDO" << setw(colAncho) << "EDAD" << setw(colAncho) << "ENFERMEDAD" << endl;
     ColorReset();
@@ -123,7 +122,8 @@ void MostrarPacientes(){
     }
     system("pause");
     system("CLS");
-    main(); 
+    main();
+    } 
 }
 
 void AgregarPaciente(){
@@ -266,6 +266,7 @@ void ModificarPaciente(){
         ColorVerde();
         cout << "Datos Actualizados." << endl;
         ColorReset();
+        system("pause");
         break;
         }
     }
@@ -338,7 +339,6 @@ void EliminarPaciente(){
     main();
 }
 
-
 int main(){
 
     Menu();
@@ -356,8 +356,5 @@ int main(){
     case 4:
         EliminarPaciente();
         break;
-    case 5:
-        //salir
-        return 0;
-    }   
+    }
 }
