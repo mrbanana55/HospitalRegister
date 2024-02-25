@@ -12,15 +12,16 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <conio.h>
 //Para estilizar textos en CMD:
 #include <iomanip>
-#include <ios> 
+#include <windows.h>
 
 using namespace std;
 
 //variables globales
 int opcion, id = 0;
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //de windows.h para obtener manejo de la salida estandar. Se guarda en hConsole
+
 
 //prototipo para llamarlo desde otros lados.
 int main();
@@ -41,17 +42,54 @@ typedef struct paciente{
 //vector de tipo paciente
 vector <paciente> pacientes;
 
+void ColorAmarillo(){ //Cambia color del texto a amarillo
+
+    SetConsoleTextAttribute(hConsole, 14);
+}
+void ColorReset(){ //Resetea el color del texto al default
+    SetConsoleTextAttribute(hConsole, 7);
+    
+}
+
 void Menu(){
 
+    ColorAmarillo();
     cout << "*******************" << endl;
     cout << "*Base de Pacientes*" << endl;
     cout << "*******************" << endl;
+    ColorReset();
     cout << endl << endl;
-    cout << "[1] Mostrar Pacientes." << endl;
-    cout << "[2] Añadir Paciente." << endl;
-    cout << "[3] Modificar Paciente." << endl;
-    cout << "[4] Quitar Paciente." << endl;
-    cout << "[5] Salir." << endl << endl;
+
+    cout << "[";
+    ColorAmarillo();
+    cout << "1";
+    ColorReset();
+    cout << "] Mostrar Pacientes." << endl;
+
+    cout << "[";
+    ColorAmarillo();
+    cout << "2";
+    ColorReset();
+    cout << "] Añadir Paciente." << endl;
+
+    cout << "[";
+    ColorAmarillo();
+    cout << "3";
+    ColorReset();
+    cout << "] Modificar Paciente." << endl;
+
+    cout << "[";
+    ColorAmarillo();
+    cout << "4";
+    ColorReset();
+    cout << "] Quitar Paciente." << endl;
+
+    cout << "[";
+    ColorAmarillo();
+    cout << "5";
+    ColorReset();
+    cout << "] Salir." << endl << endl;
+
     cout << "Ingresa el número correspondiente a la opción: ";
     cin >> opcion;
     cin.ignore();
