@@ -19,7 +19,7 @@
 using namespace std;
 
 //variables globales
-int opcion, id = 0;
+int opcion, id = 0, colAncho = 20;
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //de windows.h para obtener manejo de la salida estandar. Se guarda en hConsole
 
 
@@ -46,9 +46,14 @@ void ColorAmarillo(){ //Cambia color del texto a amarillo
 
     SetConsoleTextAttribute(hConsole, 14);
 }
+void ColorVerde(){
+    SetConsoleTextAttribute(hConsole, 2);
+}
+void ColorRojo(){
+    SetConsoleTextAttribute(hConsole, 4);
+}
 void ColorReset(){ //Resetea el color del texto al default
     SetConsoleTextAttribute(hConsole, 7);
-    
 }
 
 void Menu(){
@@ -98,14 +103,27 @@ void Menu(){
 
 void MostrarPacientes(){
 
-    cout << "ID\tNOMBRE\tAPELLIDO\tEDAD\tENFERMEDAD" << endl;
+    if (pacientes.empty()) //si no hay datos registrados
+    {
+        ColorRojo();
+        cout << "Sin datos para mostrar" << endl;
+        ColorReset();
+        system("pause");
+        system("CLS");
+        main();
+    }
+    
+
+    ColorAmarillo();
+    cout << setw(5) << "ID" << setw(colAncho) <<"NOMBRE" << setw(colAncho) << "APELLIDO" << setw(colAncho) << "EDAD" << setw(colAncho) << "ENFERMEDAD" << endl;
+    ColorReset();
     for (paciente i : pacientes){
-        cout << i.id << "\t" << i.nombre << "\t" << i.apellido << "\t" << i.edad << "\t" << i.enfermedad << endl;
+        cout << setw(5) << i.id << setw(colAncho) << i.nombre << setw(colAncho) << i.apellido << setw(colAncho) << i.edad << setw(colAncho) << i.enfermedad << endl;
+        cout << "------------------------------------------------------------------------------------------" << endl;
     }
     system("pause");
     system("CLS");
-    main();
-    
+    main(); 
 }
 
 void AgregarPaciente(){
@@ -134,12 +152,30 @@ void AgregarPaciente(){
     pacientes.push_back(paciente(nombrePaciente, apellidoPaciente, edadPaciente, enfermedadPaciente, id));
     
     system("CLS");
+
+    ColorVerde();
     cout << "Paciente Registrado" << endl;
-    cout << "Nombre: " << nombrePaciente << endl;
-    cout << "Apellido: " << apellidoPaciente << endl;
-    cout << "Edad: " << edadPaciente << endl;
-    cout << "Enfermedad: " << enfermedadPaciente << endl;
-    cout << "ID: " << id << endl << endl;
+
+    ColorAmarillo();
+    cout << "Nombre: ";
+    ColorReset();
+    cout << nombrePaciente << endl;
+    ColorAmarillo();
+    cout << "Apellido: ";
+    ColorReset();
+    cout << apellidoPaciente << endl;
+    ColorAmarillo();
+    cout << "Edad: ";
+    ColorReset();
+    cout << edadPaciente << endl;
+    ColorAmarillo();
+    cout << "Enfermedad: ";
+    ColorReset();
+    cout << enfermedadPaciente << endl;
+    ColorAmarillo();
+    cout << "ID: ";
+    ColorReset();
+    cout << id << endl << endl;
     id++;
     system("pause");
     system("CLS");
@@ -158,17 +194,43 @@ void ModificarPaciente(){
         if (i.id == target)
         {
             encontrado = true;
+            ColorAmarillo();
             cout << "*********************" << endl;
-            cout << "*PACIENTE ENCONTRADO*" << endl;
+            cout << "*";
+            ColorVerde();
+            cout << "PACIENTE ENCONTRADO";
+            ColorAmarillo();
+            cout << "*" << endl;
             cout << "*********************" << endl << endl;
+            ColorReset();
 
-            cout << "[1] Cambiar nombre." << endl;
-            cout << "[2] Cambiar apellido." << endl;
-            cout << "[3] Cambiar edad." << endl;
-            cout << "[4] Cambiar enfermedad." << endl;
-            cout << "[5] Salir" << endl << endl;
+            cout << "[";
+            ColorAmarillo();
+            cout << "1";
+            ColorReset();
+            cout << "] Cambiar nombre." << endl;
+            cout << "[";
+            ColorAmarillo();
+            cout << "2";
+            ColorReset();
+            cout << "] Cambiar apellido." << endl;
+            cout << "[";
+            ColorAmarillo();
+            cout << "3";
+            ColorReset();
+            cout << "] Cambiar edad." << endl;
+            cout << "[";
+            ColorAmarillo();
+            cout << "4";
+            ColorReset();
+            cout << "] Cambiar enfermedad." << endl;
+            cout << "[";
+            ColorAmarillo();
+            cout << "5";
+            ColorReset();
+            cout << "] Salir" << endl << endl;
 
-            cout << "Selecciona la opción del dato a modificar" << endl;
+            cout << "Selecciona la opción del dato a modificar: " << endl;
             cin >> opcion;
             cin.ignore();
             system("CLS");
@@ -207,7 +269,9 @@ void ModificarPaciente(){
     if(!encontrado)
     {
         system("CLS");
+        ColorRojo();
         cout << "Paciente no encontrado." << endl;
+        ColorReset();
         system("pause");
     }
     system("CLS");
@@ -228,26 +292,43 @@ void EliminarPaciente(){
         if (it->id == target)
         {
             encontrado = true;
+
+            ColorAmarillo();
             cout << "*********************" << endl;
-            cout << "*PACIENTE ENCONTRADO*" << endl;
+            cout << "*";
+            ColorVerde();
+            cout << "PACIENTE ENCONTRADO";
+            ColorAmarillo();
+            cout << "*" << endl;
             cout << "*********************" << endl << endl;
+            ColorReset();
 
-            cout << "ID\tNOMBRE\tAPELLIDO\tEDAD\tENFERMEDAD" << endl;
-            cout << it->id << "\t" << it->nombre << "\t" << it->apellido << "\t" << it->edad << "\t" << it->enfermedad << endl << endl;
+            ColorAmarillo();
+            cout << setw(5) << "ID" << setw(colAncho) <<"NOMBRE" << setw(colAncho) << "APELLIDO" << setw(colAncho) << "EDAD" << setw(colAncho) << "ENFERMEDAD" << endl;
+            ColorReset();
+            cout << setw(5) << it->id << setw(colAncho) << it->nombre << setw(colAncho) << it->apellido << setw(colAncho) << it->edad << setw(colAncho) << it->enfermedad << endl << endl;
 
-            cout << "Ingresa [1] para eliminar el paciente. Ingresa cualquier otro numero para regresar: ";
+            cout << "Ingresa [";
+            ColorAmarillo();
+            cout << "1";
+            ColorReset();
+            cout << "] para eliminar el paciente. Ingresa cualquier otro numero para regresar: ";
             cin >> confirmar;
             cin.ignore();
             if(confirmar == 1){
                 pacientes.erase(it);
+                ColorRojo();
                 cout << "Paciente eliminado." << endl;
+                ColorReset();
             }
             else cout << "Cancelando..." << endl;
             break;
         }
     }
     if (!encontrado) {
+        ColorRojo();
         cout << "Paciente no encontrado." << endl;
+        ColorReset();
     }
     system("pause");
     system("CLS");
