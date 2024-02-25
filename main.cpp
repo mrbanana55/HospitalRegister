@@ -12,6 +12,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <locale.h>//Acentos
 //Para estilizar textos en CMD:
 #include <iomanip>
 #include <windows.h>
@@ -204,6 +205,10 @@ void ModificarPaciente(){
             cout << "*********************" << endl << endl;
             ColorReset();
 
+            cout<<endl<<"Usted quiere modificar a: ";ColorVerde();cout<< i.nombre; ColorReset();cout<<", el cual tiene los siguientes datos";
+            cout<<endl<<"Apellido:      "<<i.apellido;
+            cout<<endl<<"Edad:          "<<i.edad;
+            cout<<endl<<"Enfermedad:    "<<i.enfermedad<<endl<<endl;
             cout << "[";
             ColorAmarillo();
             cout << "1";
@@ -340,6 +345,7 @@ void EliminarPaciente(){
 }
 
 int main(){
+    setlocale(LC_CTYPE,"Spanish");    //Acentos
 
     Menu();
     switch (opcion)
