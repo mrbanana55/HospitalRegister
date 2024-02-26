@@ -12,7 +12,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <locale.h>//Acentos
 //Para estilizar textos en CMD:
 #include <iomanip>
 #include <windows.h>
@@ -128,6 +127,7 @@ void MostrarPacientes(){
 }
 
 void AgregarPaciente(){
+
     string nombrePaciente;
     string apellidoPaciente;
     int edadPaciente;
@@ -345,7 +345,6 @@ void EliminarPaciente(){
 }
 
 int main(){
-    setlocale(LC_CTYPE,"Spanish");    //Acentos
 
     Menu();
     switch (opcion)
